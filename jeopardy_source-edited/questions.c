@@ -14,6 +14,13 @@
 void initialize_game(void)
 {
     // initialize each question struct and assign it to the questions array
+    for(int i = 0; i < 12; i++){
+        strcpy(questions[i].category, categories[i%3]);
+        questions[i].answered = false;
+        strcpy(questions[i].question, "Question");
+        strcpy(questions[i].answer, "Answer");
+
+    }
 }
 
 // Displays each of the remaining categories and question dollar values that have not been answered

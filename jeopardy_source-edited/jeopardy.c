@@ -39,12 +39,7 @@ int main(int argc, char *argv[])
 
     system("cls");
 
-    for(int i = 0; i < numPlayers; i++){
-        printf("Enter name for player %d: ", i+1);
-        scanf("%s", players[i].name);
-        players[i].score = 0;
-        system("cls");
-    }
+    
 
 
     for(int i = 0; i < numPlayers; i++){
@@ -52,19 +47,24 @@ int main(int argc, char *argv[])
     }
 
     printf("\n");
-
-
-    // An array of 4 players, may need to be a pointer if you want it set dynamically
-    //player players[NUM_PLAYERS];
     
     
     // Input buffer and and commands
     char buffer[BUFFER_LEN] = { 0 };
 
     // Display the game introduction and initialize the questions
-    //initialize_game();
+    initialize_game();
 
     // Prompt for players names
+
+    for(int i = 0; i < numPlayers; i++){
+        printf("Enter name for player %d: ", i+1);
+        scanf("%s", players[i].name);
+        players[i].score = 0;
+        system("cls");
+    }
+
+    printf("%s\n", questions[0].question);
     
     // initialize each of the players in the array
 
