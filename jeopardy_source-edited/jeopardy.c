@@ -17,6 +17,8 @@
 #define BUFFER_LEN 256
 #define NUM_PLAYERS 4
 
+const int numPlayers;
+
 // Put global environment variables here
 
 // Processes the answer from the user containing what is or who is and tokenizes it to retrieve the answer.
@@ -28,6 +30,30 @@ void show_results(player *players, int num_players);
 
 int main(int argc, char *argv[])
 {
+
+    int numPlayers;
+    printf("Enter the number of playres (1-4): ");
+    scanf("%d", &numPlayers);
+
+    player *players = malloc(sizeof (player) * numPlayers);
+
+    system("cls");
+
+    for(int i = 0; i < numPlayers; i++){
+        printf("Enter name for player %d: ", i+1);
+        scanf("%s", players[i].name);
+        players[i].score = 0;
+        system("cls");
+    }
+
+
+    for(int i = 0; i < numPlayers; i++){
+        printf("%s %d | ", players[i].name, players[i].score);
+    }
+
+    printf("\n");
+
+
     // An array of 4 players, may need to be a pointer if you want it set dynamically
     //player players[NUM_PLAYERS];
     
@@ -36,7 +62,7 @@ int main(int argc, char *argv[])
     char buffer[BUFFER_LEN] = { 0 };
 
     // Display the game introduction and initialize the questions
-    initialize_game();
+    //initialize_game();
 
     // Prompt for players names
     
