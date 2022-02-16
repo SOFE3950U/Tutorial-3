@@ -56,22 +56,50 @@ int main(int argc, char *argv[])
     initialize_game();
 
     // Prompt for players names
-
+    // initialize each of the players in the array
     for(int i = 0; i < numPlayers; i++){
         printf("Enter name for player %d: ", i+1);
         scanf("%s", players[i].name);
         players[i].score = 0;
         system("cls");
     }
-
-    printf("%s\n", questions[0].question);
     
-    // initialize each of the players in the array
+    
 
     // Perform an infinite loop getting command input from users until game ends
     while (fgets(buffer, BUFFER_LEN, stdin) != NULL)
-    {
+    {   
+        
+        int a;
+        char cat;
+        int val;
+
+        int playerNum = 0;
+        display_categories();
+        printf("\n");
+
+        // printf("Player %d, select category: ", playerNum+1);
+        // scanf("%c", &cat);
+        // printf("Player %d, select value: ", playerNum+1);
+        // scanf("%d", &val);
+
+        printf("%s, select question: ", players[playerNum].name);
+        scanf("%d", &a);
+
+        if(a == -1){
+            break;
+        }
+
+        system("cls");
+
         // Call functions from the questions and players source files
+        if(already_answered(a)){
+            printf("%s, select a different question: ", players[playerNum].name);
+            scanf("%d", &a);
+        }else{
+            display_question(a);
+        }
+        
 
         // Execute the game until all questions are answered
 

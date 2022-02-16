@@ -19,20 +19,89 @@ void initialize_game(void)
         questions[i].answered = false;
         strcpy(questions[i].question, "Question");
         strcpy(questions[i].answer, "Answer");
-
     }
+
+    questions[0].value = 100;
+    questions[1].value = 100;
+    questions[2].value = 100;
+
+    questions[3].value = 200;
+    questions[4].value = 200;
+    questions[5].value = 200;
+
+    questions[6].value = 300;
+    questions[7].value = 300;
+    questions[8].value = 300;
+
+    questions[9].value = 500;
+    questions[10].value = 500;
+    questions[11].value = 500;
 }
 
 // Displays each of the remaining categories and question dollar values that have not been answered
 void display_categories(void)
 {
     // print categories and dollar values for each unanswered question in questions array
+
+    int width = 15;
+
+    for(int i = 0; i < 3; i++){
+        printf("%-15s\t", categories[i]);
+    }
+    printf("\n");
+    printf("-------------------------------------------\n");
+
+    for(int i = 0; i < 3; i++){
+        if(questions[i].answered){
+            printf("%-15s\t", "---");
+        }else{
+            printf("(%d) ", i);
+            printf("%-10d\t", questions[i].value);
+        }
+    }
+    printf("\n");
+
+    printf("\n");
+    for(int i = 3; i < 6; i++){
+        if(questions[i].answered){
+            printf("%-15s\t", "-");
+        }else{
+            printf("(%d) ", i);
+            printf("%-10d\t", questions[i].value);
+        }
+    }
+    printf("\n");
+
+    printf("\n");
+    for(int i = 6; i < 9; i++){
+        if(questions[i].answered){
+            printf("%-15s\t", "-");
+        }else{
+            printf("(%d) ", i);
+            printf("%-10d\t", questions[i].value);
+        }
+    }
+    printf("\n");
+
+    printf("\n");
+    for(int i = 9; i < 12; i++){
+        if(questions[i].answered){
+            printf("%-15s\t", "-");
+        }else{
+            printf("(%d) ", i);
+            printf("%-10d\t", questions[i].value);
+        }
+    }
+    printf("\n");
+
+    
 }
 
 // Displays the question for the category and dollar value
-void display_question(char *category, int value)
+//void display_question(char *category, int value)
+void display_question(int qNum)
 {
-
+    printf("%s\n", questions[qNum].question);
 }
 
 // Returns true if the answer is correct for the question for that category and dollar value
@@ -43,8 +112,13 @@ bool valid_answer(char *category, int value, char *answer)
 }
 
 // Returns true if the question has already been answered
-bool already_answered(char *category, int value)
+//bool already_answered(char *category, int value)
+bool already_answered(int qNum)
 {
     // lookup the question and see if it's already been marked as answered
-    return false;
+    if(!questions[qNum].answered){
+        return false;
+    }
+
+    return true;
 }
