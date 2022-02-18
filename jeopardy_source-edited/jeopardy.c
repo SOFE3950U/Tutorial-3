@@ -32,19 +32,12 @@ int main(int argc, char *argv[])
 {
 
     int numPlayers;
-    printf("Enter the number of playres (1-4): ");
+    printf("Enter the number of players (1-4): ");
     scanf("%d", &numPlayers);
 
     player *players = malloc(sizeof (player) * numPlayers);
 
     system("cls");
-
-    
-
-
-    for(int i = 0; i < numPlayers; i++){
-        printf("%s %d | ", players[i].name, players[i].score);
-    }
 
     printf("\n");
     
@@ -65,45 +58,138 @@ int main(int argc, char *argv[])
     }
     
     
+    int playerNum = 0%numPlayers;
+    int a;
+
+    int counter = 0;
 
     // Perform an infinite loop getting command input from users until game ends
     while (fgets(buffer, BUFFER_LEN, stdin) != NULL)
     {   
-        
-        int a;
-        char cat;
-        int val;
 
-        int playerNum = 0;
         display_categories();
         printf("\n");
-
-        // printf("Player %d, select category: ", playerNum+1);
-        // scanf("%c", &cat);
-        // printf("Player %d, select value: ", playerNum+1);
-        // scanf("%d", &val);
 
         printf("%s, select question: ", players[playerNum].name);
         scanf("%d", &a);
 
-        if(a == -1){
+        if(a < 0){
+            break;
+        }
+
+        while(already_answered(a) || a >= 12){
+            printf("%s, select a valid question: ", players[playerNum].name);
+            scanf("%d", &a);
+        }
+
+        if(a < 0){
             break;
         }
 
         system("cls");
 
         // Call functions from the questions and players source files
-        if(already_answered(a)){
-            printf("%s, select a different question: ", players[playerNum].name);
-            scanf("%d", &a);
+
+        display_question(a);
+
+        printf("\nEnter your answer: ");
+        char *ans[MAX_LEN] = {0};
+        getchar();
+        //scanf("%s", ans);
+        fgets((char *) ans, MAX_LEN, stdin);
+
+        questions[a].answered = true;
+        counter += 1;
+
+        char *tokenized_ans;
+        tokenize((char *) ans, &tokenized_ans);
+
+        if(valid_answer(a, tokenized_ans)){
+            printf("\nCongrats, %s!\nThe correct answer is: %s\n", players[playerNum].name, questions[a].answer);
+            //players[playerNum].score += questions[a].value;
+            update_score(players, numPlayers, players[playerNum].name, questions[a].value);
+            playerNum = (playerNum + 1) % numPlayers;
+            printf("ENTER any key to continue...\n");
+            getch(); //change to getchar() for unix
         }else{
-            display_question(a);
+            printf("\nSorry, %s!\nThe correct answer is: %s\n", players[playerNum].name, questions[a].answer);
+            playerNum = (playerNum + 1) % numPlayers;
+            printf("ENTER any key to continue...\n");
+            getch(); //change to getchar() for unix
         }
+        
         
 
         // Execute the game until all questions are answered
+        if(counter == 12){
+            break;
+        }
 
         // Display the final results and exit
     }
+
+    system("cls");
+    show_results(players, numPlayers);
     return EXIT_SUCCESS;
+}
+
+
+void tokenize(char *input, char **tokens){
+
+    char *token;
+
+    token = strtok(input," ");
+
+    if(token != NULL){
+        if(strcasecmp(token, "who") != 0 && strcasecmp(token, "what") != 0){
+            return;
+        }
+    }
+
+    token = strtok(NULL, " ");
+
+    if(token != NULL){
+        if(strcasecmp(token, "is") != 0){
+            return;
+        }
+    }
+
+    *tokens = strtok(NULL, "\n");
+}
+
+
+void show_results(player *players, int numPlayers){
+
+    for(int i = 0; i < numPlayers-1; i++){
+        for(int j = 0; j < numPlayers-i-1; j++){
+            if(players[j].score < players[j+1].score){
+                player temp;
+
+                temp = players[j];
+                players[j] = players[j+1];
+                players[j+1] = temp;
+            }
+        }
+    }
+
+    bool tie = false;
+    int score = players[0].score;
+
+    for(int i = 1; i < numPlayers; i++){
+        if (score == players[i].score)
+            tie = true;
+            break;
+        score = players[i].score;
+    }
+
+    if(tie){
+        printf("%s: %d\n", players[0].name, players[0].score);
+    }else{
+        printf("%s: %d - WINNER!!\n", players[0].name, players[0].score);
+    }
+
+    for(int i = 1; i < numPlayers; i ++){
+        
+        printf("%s: %d\n", players[i].name, players[i].score);
+    }
 }

@@ -44,6 +44,12 @@ void display_categories(void)
     // print categories and dollar values for each unanswered question in questions array
 
     int width = 15;
+    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    printf("Enter the number in brackets to select the questions.\n");
+    printf("\n\"---\"\t\t - question is already answered.\n");
+    printf("\"(#) val\"\t - question can be selected by Entering the number specified by #.\n");
+    printf("\nEnter -1 to exit.\n");
+    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
 
     for(int i = 0; i < 3; i++){
         printf("%-15s\t", categories[i]);
@@ -51,6 +57,7 @@ void display_categories(void)
     printf("\n");
     printf("-------------------------------------------\n");
 
+    //1st Ques for each Category
     for(int i = 0; i < 3; i++){
         if(questions[i].answered){
             printf("%-15s\t", "---");
@@ -61,10 +68,11 @@ void display_categories(void)
     }
     printf("\n");
 
+    //2nd Ques for each Category
     printf("\n");
     for(int i = 3; i < 6; i++){
         if(questions[i].answered){
-            printf("%-15s\t", "-");
+            printf("%-15s\t", "---");
         }else{
             printf("(%d) ", i);
             printf("%-10d\t", questions[i].value);
@@ -72,10 +80,11 @@ void display_categories(void)
     }
     printf("\n");
 
+    //3rd Ques for each Category
     printf("\n");
     for(int i = 6; i < 9; i++){
         if(questions[i].answered){
-            printf("%-15s\t", "-");
+            printf("%-15s\t", "---");
         }else{
             printf("(%d) ", i);
             printf("%-10d\t", questions[i].value);
@@ -83,10 +92,11 @@ void display_categories(void)
     }
     printf("\n");
 
+    //4th Ques for each Category
     printf("\n");
     for(int i = 9; i < 12; i++){
         if(questions[i].answered){
-            printf("%-15s\t", "-");
+            printf("%-15s\t", "---");
         }else{
             printf("(%d) ", i);
             printf("%-10d\t", questions[i].value);
@@ -105,9 +115,14 @@ void display_question(int qNum)
 }
 
 // Returns true if the answer is correct for the question for that category and dollar value
-bool valid_answer(char *category, int value, char *answer)
+//bool valid_answer(char *category, int value, char *answer)
+bool valid_answer(int qNum, char *answer)
 {
     // Look into string comparison functions
+    if(strcasecmp(answer, questions[qNum].answer) == 0){
+        return true;
+    }
+
     return false;
 }
 
