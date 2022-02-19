@@ -22,8 +22,36 @@ void initialize_game(void)
         strcpy(questions[i].answer, "Answer");
     }
 
-    questions[4].question = "It's a statement of a relationship such as greater than or less than";
-    questions[4].answer = "What is inequality";
+    //Questions/answers for Games category
+    strcpy(questions[0].question, "This winning declaration in a chess game is from the Arabic for \"This king is dead\"");
+    strcpy(questions[0].answer, "What is checkmate?");
+    strcpy(questions[3].question,"In the \"Simpsons\" edition Monopoly, properties up for sale include Disco Stu's and this convenience store");
+    strcpy(questions[3].answer,"What is Kwik-E-Mart");
+    strcpy(questions[6].question, "\"Walk-off\" began as a term for a play that ends a game in this sport");
+    strcpy(questions[6].answer, "What is baseball?");
+    strcpy(questions[9].question,"The bank cannot go broke in this Parker Brothers game, so exhaustion may be the deciding factor");
+    strcpy(questions[9].answer,"What is Monopoly?");
+
+    //Questions/answers for Science category
+    strcpy(questions[1].question,"As its name suggests, this 1,900-foot-deep lake sits atop an Oregon volcano");
+    strcpy(questions[1].answer,"What is Crater?");
+    strcpy(questions[4].question, "It's a statement of a relationship such as greater than or less than");
+    strcpy(questions[4].answer, "What is inequality?");
+    strcpy(questions[7].question, "In calculus this is defined as the instantaneous rate of change of a function");
+    strcpy(questions[7].answer, "What is derivative?");
+    strcpy(questions[10].question,"A tremor of the thumb can be a sign of this neurological disorder that bears the last name of a British doctor");
+    strcpy(questions[10].answer,"What is Parkinson's?");
+
+
+    //Questions/answer for Arts category
+    strcpy(questions[2].question, "Before he was \"The Rock\", he had another nickname--Dewey");
+    strcpy(questions[2].answer, "Who is Dwanye Johnson?");
+    strcpy(questions[5].question, "This country legends is Miley Cyrus' godmother");
+    strcpy(questions[5].answer, "Who is Dolly Parton?");
+    strcpy(questions[8].question,"He painted \"Lady With a Fan\" during his Rose Period");
+    strcpy(questions[8].answer,"Who is Picasso?");
+    strcpy(questions[11].question, "The title of this 1961 novel is shorthand for a no-win situation");
+    strcpy(questions[11].answer, "What is Catch-22?");
 
     questions[0].value = 100;
     questions[1].value = 100;
@@ -40,12 +68,6 @@ void initialize_game(void)
     questions[9].value = 500;
     questions[10].value = 500;
     questions[11].value = 500;
-
-    //Pseudorandomize daily double
-    time_t t;
-    srand((unsigned) time(&t));
-    int r = rand() & 12;
-    questions[r].value = questions[r].value*2;
 }
 
 // Displays each of the remaining categories and question dollar values that have not been answered
