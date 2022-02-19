@@ -13,6 +13,7 @@
 // Initializes the array of questions for the game
 void initialize_game(void)
 {
+
     // initialize each question struct and assign it to the questions array
     for(int i = 0; i < 12; i++){
         strcpy(questions[i].category, categories[i%3]);
@@ -20,6 +21,9 @@ void initialize_game(void)
         strcpy(questions[i].question, "Question");
         strcpy(questions[i].answer, "Answer");
     }
+
+    questions[4].question = "It's a statement of a relationship such as greater than or less than";
+    questions[4].answer = "What is inequality";
 
     questions[0].value = 100;
     questions[1].value = 100;
@@ -36,6 +40,12 @@ void initialize_game(void)
     questions[9].value = 500;
     questions[10].value = 500;
     questions[11].value = 500;
+
+    //Pseudorandomize daily double
+    time_t t;
+    srand((unsigned) time(&t));
+    int r = rand() & 12;
+    questions[r].value = questions[r].value*2;
 }
 
 // Displays each of the remaining categories and question dollar values that have not been answered
